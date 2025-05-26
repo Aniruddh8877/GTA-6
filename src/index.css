@@ -10,5 +10,5 @@ body {
 }
 @font-face {
      font-family: "Pricedown";
-     src: url("./pricedown.otf");
+     src: url("../public/fonts/pricedown.otf") format("opentype");
 }

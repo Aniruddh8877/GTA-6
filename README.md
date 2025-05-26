@@ -32,13 +32,15 @@ This project is a **Grand Theft Auto (GTA)**-style landing animation built using
    git clone https://github.com/yourusername/rockstar-animation.git
    cd rockstar-animation
 
-
+2. **install node Packages**
+```bash
 npm install
 
-
+3. **starting command **
+```bash
 npm run dev
 
-
+4. **LocalHost on browser**
 http://localhost:5173
 
 

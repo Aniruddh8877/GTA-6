@@ -13,7 +13,7 @@ This project is a **Grand Theft Auto (GTA)**-style landing animation built using
 
 ## 📸 Preview
 
-![Screenshot](./preview.png) <!-- Add a screenshot file named preview.png in your root folder -->
+![Screenshot](/public/Preview.png) <!-- Add a screenshot file named preview.png in your root folder -->
 
 ## 🛠️ Technologies Used
 

@@ -33,15 +33,15 @@ This project is a **Grand Theft Auto (GTA)**-style landing animation built using
    cd rockstar-animation
 
 2. **install node Packages**
-```bash
-npm install
+     ```bash
+     npm install
 
-3. **starting command **
-```bash
-npm run dev
+3. **starting command**
+     ```bash
+     npm run dev
 
 4. **LocalHost on browser**
-http://localhost:5173
+     http://localhost:5173
 
 
 

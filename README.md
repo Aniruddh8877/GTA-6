@@ -1,12 +1,48 @@
-# React + Vite
+# 🎮 Rockstar Intro Animation - React + GSAP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a **Grand Theft Auto (GTA)**-style landing animation built using **React**, **Tailwind CSS**, and **GSAP**. It features a cinematic SVG intro animation, smooth parallax effects on mouse movement, and a sleek animated landing page inspired by Rockstar's branding.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎥 SVG Mask Intro Animation with `GSAP Timeline`
+- 🖱️ Mouse-based Parallax Animation (Sky, Background, Text Layers)
+- 🧍 Character Entrance Animation
+- 📜 Scroll Cue and Call-to-Actions
+- 📄 Fully responsive design with Tailwind CSS
+- 💡 Clean component structure
 
-## Expanding the ESLint configuration
+## 📸 Preview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Screenshot](./preview.png) <!-- Add a screenshot file named preview.png in your root folder -->
+
+## 🛠️ Technologies Used
+
+- [React](https://reactjs.org/)
+- [GSAP (GreenSock Animation Platform)](https://greensock.com/gsap/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Remix Icon](https://remixicon.com/)
+
+## 📁 Folder Structure
+
+
+## 🔧 Setup & Installation
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/rockstar-animation.git
+   cd rockstar-animation
+
+
+npm install
+
+
+npm run dev
+
+
+http://localhost:5173
+
+
+
+Made with ❤️ by [Aniruddh-Sharma]
+
+You can rename the project and add any personal GitHub URL or credits as needed. Let me know if you want a Hindi version or if you'd like to convert this into a PDF.

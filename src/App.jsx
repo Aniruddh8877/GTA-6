@@ -33,8 +33,55 @@ const App = () => {
         }
       },
 
-    })
-  })
+    });
+  });
+
+ useGSAP(() => {
+  const main = document.querySelector('.main');
+
+  // One-time animation: character comes from bottom with fade-in
+  gsap.fromTo('.imagediv .character',
+    {
+      y: 100,
+      x: -380,
+      opacity: 0
+    },
+    {
+      y: -580,
+      x: -380,
+      opacity: 1,
+      duration: 1.2,
+      ease: "power2.out"
+    }
+  );
+
+  // Mousemove parallax effect
+  main?.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+
+    gsap.to(".imagediv .text", {
+      x: `${-x * 0.5}%`,
+      y: `${-y * 0.5}%`,
+      duration: 0.4
+    });
+
+    gsap.to('.imagediv .sky', {
+      x: `${-x * 0.2}%`,
+      y: `${-y * 0.2}%`,
+      duration: 0.4
+    });
+
+    gsap.to('.imagediv .bg', {
+      x: `${-x * 0.4}%`,
+      y: `${-y * 0.4}%`,
+      duration: 0.4
+    });
+  });
+
+}, [Show]);
+
+
 
 
   return (
@@ -88,11 +135,11 @@ const App = () => {
             <div className='imagediv w-full h-screen relative overflow-hidden' >
               <img src="./sky.png"
                 alt=""
-                className=' absolute top-0 left-0 w-full h-full object-cover z-10' />
+                className='sky absolute top-0 left-0 w-full h-full object-cover z-10 scale-150' />
 
               <img src="./bg.png"
                 alt=""
-                className='absolute top-0 left-0 w-full h-full object-cover z-20' />
+                className='bg absolute top-0 left-0 w-full h-full object-cover z-20 scale-110' />
 
               <div className="text absolute z-20 flex flex-col gap-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ml-30 leading-none" >
                 <h1 className='text-white text-[10rem] font-bold  -ml-48'>grand</h1>
@@ -101,14 +148,14 @@ const App = () => {
               </div>
               <img src="./girlbg.png"
                 alt=""
-                className='absolute -bottom-[87%] left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[1.3] z-30'
+                className='character  absolute -bottom-[87%] left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[1.3] z-30'
               />
             </div>
 
 
             <div className="footerdiv w-full py-10 px-10  flex items-center justify-between absolute z-50 bottom-0 left-0">
               <div className='logo flex items-center gap-2 justify-between'>
-                <i class="ri-arrow-down-line font-bold text-white text-2xl"></i>
+                <i className="ri-arrow-down-line font-bold text-white text-2xl"></i>
                 <h3 className='text-white text-3xl font-serif  leading-none'>Scroll Down </h3>
               </div>
               <div>
@@ -120,15 +167,50 @@ const App = () => {
               </div>
               <div className='logo flex items-center gap-2 justify-between'>
                 <h3 className='text-white text-3xl font-serif leading-none justify-center items-center'>Comming soon</h3>
-                <i class="ri-arrow-right-circle-fill text-3xl text-white"></i>
+                <i className="ri-arrow-right-circle-fill text-3xl text-white"></i>
               </div>
             </div>
           </div>
 
 
           {/* second page start here ^*_*^ */}
-          <div className="section2 w-full h-screen flex items-center justify-center bg-yellow-700">
-
+          <div className="w-full h-screen flex items-center justify-center bg-black">
+            <div className="cntnr flex text-white w-full h-[80%] ">
+              <div className="limg relative w-1/2 h-full">
+                <img
+                  className="absolute scale-[1.3] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  src="./imag.png"
+                  alt=""
+                />
+              </div>
+              <div className="rg w-[30%] py-30">
+                <h1 className="text-8xl">Still Running,</h1>
+                <h1 className="text-8xl">Not Hunting</h1>
+                <p className="mt-10 text-xl font-[Helvetica_Now_Display]">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Distinctio possimus, asperiores nam, omnis inventore nesciunt
+                  a architecto eveniet saepe, ducimus necessitatibus at
+                  voluptate.
+                </p>
+                <p className="mt-3 text-xl font-[Helvetica_Now_Display]">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                  eius illum fugit eligendi nesciunt quia similique velit
+                  excepturi soluta tenetur illo repellat consectetur laborum
+                  eveniet eaque, dicta, hic quisquam? Ex cupiditate ipsa nostrum
+                  autem sapiente.
+                </p>
+                <p className="mt-10 text-xl font-[Helvetica_Now_Display]">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                  eius illum fugit eligendi nesciunt quia similique velit
+                  excepturi soluta tenetur illo repellat consectetur laborum
+                  eveniet eaque, dicta, hic quisquam? Ex cupiditate ipsa nostrum
+                  autem sapiente.
+                </p>
+                <button className="bg-yellow-500 px-10 py-10 text-black mt-10 text-4xl">
+                  Download Now
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       }

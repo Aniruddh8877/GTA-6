@@ -35,7 +35,7 @@ const App = () => {
     });
   });
 
- useGSAP(() => {
+useGSAP(() => {
   const main = document.querySelector('.main');
 
   // One-time animation: character comes from bottom with fade-in
@@ -60,25 +60,26 @@ const App = () => {
     const y = (e.clientY / window.innerHeight - 0.5) * 10;
 
     gsap.to(".imagediv .text", {
-      x: ${-x * 0.5}%,
-      y: ${-y * 0.5}%,
+      x: `${-x * 0.5}%`,
+      y: `${-y * 0.5}%`,
       duration: 0.4
     });
 
     gsap.to('.imagediv .sky', {
-      x: ${-x * 0.2}%,
-      y: ${-y * 0.2}%,
+      x: `${-x * 0.2}%`,
+      y: `${-y * 0.2}%`,
       duration: 0.4
     });
 
     gsap.to('.imagediv .bg', {
-      x: ${-x * 0.4}%,
-      y: ${-y * 0.4}%,
+      x: `${-x * 0.4}%`,
+      y: `${-y * 0.4}%`,
       duration: 0.4
     });
   });
 
 }, [Show]);
+
 
 
 

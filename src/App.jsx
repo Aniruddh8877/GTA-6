@@ -5,7 +5,6 @@ import 'remixicon/fonts/remixicon.css'
 
 const App = () => {
 
-  //svg animation ^🔗^
   let [Show, setShow] = useState(false)
   useGSAP(() => {
     const tl = gsap.timeline();
@@ -174,7 +173,7 @@ const App = () => {
 
 
           {/* second page start here ^*_*^ */}
-          <div className="w-full h-screen flex items-center justify-center bg-black">
+          <div id="page2" className="w-full h-screen flex items-center justify-center bg-black">
             <div className="cntnr flex text-white w-full h-[80%] ">
               <div className="limg relative w-1/2 h-full">
                 <img

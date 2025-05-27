@@ -1,92 +1,97 @@
 import React, { useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import 'remixicon/fonts/remixicon.css'
 
-const App = () => {
+gsap.registerPlugin(ScrollToPlugin)
 
-  //svg animation ^🔗^
+const App = () => {
   let [Show, setShow] = useState(false)
+
   useGSAP(() => {
-    const tl = gsap.timeline();
-    tl.to(".vi-mask-group",
-      {
-        rotate: 40,
-        duration: 2,
-        delay: 1.1,
-        ease: "power4.easeInOut",
-        transformOrigin: "50% 50%",
-      }
-    ).to(".vi-mask-group", {
+    const tl = gsap.timeline()
+    tl.to('.vi-mask-group', {
+      rotate: 40,
+      duration: 2,
+      delay: 1.1,
+      ease: 'power4.easeInOut',
+      transformOrigin: '50% 50%',
+    }).to('.vi-mask-group', {
       scale: 19,
       duration: 4,
       delay: -1.2,
-      ease: "expo.easeInOut",
-      transformOrigin: "50% 50%",
+      ease: 'expo.easeInOut',
+      transformOrigin: '50% 50%',
       opacity: 0,
       onUpdate: function () {
         if (this.progress() >= 0.7) {
-          const svgElement = document.querySelector(".svg");
-          if (svgElement) svgElement.remove();
-          setShow(true);
-          this.kill(); // kill the tween after it's done
+          const svgElement = document.querySelector('.svg')
+          if (svgElement) svgElement.remove()
+          setShow(true)
+          this.kill()
         }
       },
+    })
+  })
 
-    });
-  });
+  useGSAP(() => {
+    const main = document.querySelector('.main')
 
- useGSAP(() => {
-  const main = document.querySelector('.main');
+    gsap.fromTo(
+      '.imagediv .character',
+      {
+        y: 100,
+        x: -380,
+        opacity: 0,
+      },
+      {
+        y: -580,
+        x: -380,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power2.out',
+      }
+    )
 
-  // One-time animation: character comes from bottom with fade-in
-  gsap.fromTo('.imagediv .character',
-    {
-      y: 100,
-      x: -380,
-      opacity: 0
-    },
-    {
-      y: -580,
-      x: -380,
-      opacity: 1,
-      duration: 1.2,
-      ease: "power2.out"
+    main?.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 10
+      const y = (e.clientY / window.innerHeight - 0.5) * 10
+
+      gsap.to('.imagediv .text', {
+        x: `${-x * 0.5}%`,
+        y: `${-y * 0.5}%`,
+        duration: 0.4,
+      })
+
+      gsap.to('.imagediv .sky', {
+        x: `${-x * 0.2}%`,
+        y: `${-y * 0.2}%`,
+        duration: 0.4,
+      })
+
+      gsap.to('.imagediv .bg', {
+        x: `${-x * 0.4}%`,
+        y: `${-y * 0.4}%`,
+        duration: 0.4,
+      })
+    })
+  }, [Show])
+
+  const scrollToSecondPage = () => {
+    const secondPage = document.getElementById('page2')
+    if (secondPage) {
+      gsap.to(window, {
+        scrollTo: { y: secondPage.offsetTop, autoKill: true },
+        duration: 1.5,
+        ease: 'power2.inOut',
+      })
     }
-  );
-
-  // Mousemove parallax effect
-  main?.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 10;
-    const y = (e.clientY / window.innerHeight - 0.5) * 10;
-
-    gsap.to(".imagediv .text", {
-      x: `${-x * 0.5}%`,
-      y: `${-y * 0.5}%`,
-      duration: 0.4
-    });
-
-    gsap.to('.imagediv .sky', {
-      x: `${-x * 0.2}%`,
-      y: `${-y * 0.2}%`,
-      duration: 0.4
-    });
-
-    gsap.to('.imagediv .bg', {
-      x: `${-x * 0.4}%`,
-      y: `${-y * 0.4}%`,
-      duration: 0.4
-    });
-  });
-
-}, [Show]);
-
-
-
+  }
 
   return (
     <>
-      <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-screen overflow-hidden bg-[#000]">
+      <div className="svg fixed top-0 left-0 z-[100] w-full h-screen flex items-center justify-center bg-[#000]">
         <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
           <defs>
             <mask id="viMask">
@@ -115,105 +120,71 @@ const App = () => {
           />
         </svg>
       </div>
-      {Show &&
+      {Show && (
         <div className="main w-full">
-          <div className='w-full h-screen flex items-center justify-center bg-black'>
-            <div className='navbardiv w-full py-10 px-10 flex items-center justify-between absolute z-50 top-0 left-0'>
-              <div className='logo flex items-center gap-6 justify-between'>
-                <div className="lines gap-2.5 flex flex-col">
-                  <div className='line w-14 h-[5px] bg-white'></div>
-                  <div className='line w-10 h-[5px] bg-white'></div>
-                  <div className='line w-6 h-[5px] bg-white'></div>
+          <section className='w-full h-screen flex items-center justify-center bg-black relative overflow-hidden'>
+            <header className='absolute top-0 left-0 w-full px-4 py-6 flex items-center justify-between z-50'>
+              <div className='flex items-center gap-4'>
+                <div className="flex flex-col gap-1">
+                  <div className='w-8 h-1 bg-white'></div>
+                  <div className='w-6 h-1 bg-white'></div>
+                  <div className='w-4 h-1 bg-white'></div>
                 </div>
-                <h3 className='text-white text-5xl font-bold font-[Pricedown] -mt-4 leading-none'>RockStar</h3>
+                <h3 className='text-white text-2xl sm:text-4xl font-bold'>RockStar</h3>
               </div>
-              <div>
-                <h3 className='text-white text-3xl font-serif'>learn more</h3>
+              <h3 className='text-white text-xl sm:text-2xl font-serif'>learn more</h3>
+            </header>
+
+            <div className='imagediv w-full h-full relative'>
+              <img src="./sky.png" alt="" className='sky absolute top-0 left-0 w-full h-full object-cover z-10 scale-150' />
+              <img src="./bg.png" alt="" className='bg absolute top-0 left-0 w-full h-full object-cover z-20 scale-110' />
+              <div className="text absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                <h1 className='text-white text-6xl sm:text-8xl md:text-[10rem] font-bold'>grand</h1>
+                <h1 className='text-white text-6xl sm:text-8xl md:text-[10rem] font-bold'>theft</h1>
+                <h1 className='text-white text-6xl sm:text-8xl md:text-[10rem] font-bold'>auto</h1>
               </div>
+              <img src="./girlbg.png" alt="" className='character absolute bottom-0 left-1/2 -translate-x-1/2 z-30 scale-100 md:scale-125 lg:scale-[1.3]' />
             </div>
 
-            <div className='imagediv w-full h-screen relative overflow-hidden' >
-              <img src="./sky.png"
-                alt=""
-                className='sky absolute top-0 left-0 w-full h-full object-cover z-10 scale-150' />
-
-              <img src="./bg.png"
-                alt=""
-                className='bg absolute top-0 left-0 w-full h-full object-cover z-20 scale-110' />
-
-              <div className="text absolute z-20 flex flex-col gap-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ml-30 leading-none" >
-                <h1 className='text-white text-[10rem] font-bold  -ml-48'>grand</h1>
-                <h1 className='text-white text-[10rem] font-bold  ml-[26rem]'>theft</h1>
-                <h1 className='text-white text-[10rem] font-bold  -ml-44'>auto</h1>
+            <footer className="footerdiv absolute bottom-0 left-0 w-full px-4 py-6 flex items-center justify-between z-50">
+              <div className='flex items-center gap-2 cursor-pointer' onClick={scrollToSecondPage}>
+                <i className="ri-arrow-down-line text-white text-xl sm:text-2xl"></i>
+                <h3 className='text-white text-lg sm:text-xl font-serif'>Scroll Down</h3>
               </div>
-              <img src="./girlbg.png"
-                alt=""
-                className='character  absolute -bottom-[87%] left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[1.3] z-30'
-              />
-            </div>
-
-
-            <div className="footerdiv w-full py-10 px-10  flex items-center justify-between absolute z-50 bottom-0 left-0">
-              <div className='logo flex items-center gap-2 justify-between'>
-                <i className="ri-arrow-down-line font-bold text-white text-2xl"></i>
-                <h3 className='text-white text-3xl font-serif  leading-none'>Scroll Down </h3>
+              <img src="./ps5.png" alt="" className='h-10 sm:h-16 md:h-20' />
+              <div className='flex items-center gap-2'>
+                <h3 className='text-white text-lg sm:text-xl font-serif'>Coming soon</h3>
+                <i className="ri-arrow-right-circle-fill text-white text-xl sm:text-2xl"></i>
               </div>
-              <div>
-                <img
-                  src="./ps5.png"
-                  alt=""
-                  className=' h-20'
-                />
-              </div>
-              <div className='logo flex items-center gap-2 justify-between'>
-                <h3 className='text-white text-3xl font-serif leading-none justify-center items-center'>Comming soon</h3>
-                <i className="ri-arrow-right-circle-fill text-3xl text-white"></i>
-              </div>
-            </div>
-          </div>
+            </footer>
+          </section>
 
-
-          {/* second page start here ^*_*^ */}
-          <div className="w-full h-screen flex items-center justify-center bg-black">
-            <div className="cntnr flex text-white w-full h-[80%] ">
-              <div className="limg relative w-1/2 h-full">
-                <img
-                  className="absolute scale-[1.3] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  src="./imag.png"
-                  alt=""
-                />
+          {/* Second Page */}
+          <section id="page2" className="w-full min-h-screen flex items-center justify-center bg-black px-4 py-10">
+            <div className="cntnr flex flex-col lg:flex-row text-white w-full max-w-7xl gap-10">
+              <div className="limg relative w-full lg:w-1/2 flex justify-center items-center">
+                <img src="./imag.png" alt="" className="w-[80%] max-w-md" />
               </div>
-              <div className="rg w-[30%] py-30">
-                <h1 className="text-8xl">Still Running,</h1>
-                <h1 className="text-8xl">Not Hunting</h1>
-                <p className="mt-10 text-xl font-[Helvetica_Now_Display]">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Distinctio possimus, asperiores nam, omnis inventore nesciunt
-                  a architecto eveniet saepe, ducimus necessitatibus at
-                  voluptate.
+              <div className="rg w-full lg:w-1/2">
+                <h1 className="text-4xl sm:text-6xl font-bold">Still Running,</h1>
+                <h1 className="text-4xl sm:text-6xl font-bold">Not Hunting</h1>
+                <p className="mt-6 text-base sm:text-lg">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio possimus, asperiores nam, omnis inventore nesciunt.
                 </p>
-                <p className="mt-3 text-xl font-[Helvetica_Now_Display]">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-                  eius illum fugit eligendi nesciunt quia similique velit
-                  excepturi soluta tenetur illo repellat consectetur laborum
-                  eveniet eaque, dicta, hic quisquam? Ex cupiditate ipsa nostrum
-                  autem sapiente.
+                <p className="mt-3 text-base sm:text-lg">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. At eius illum fugit eligendi nesciunt quia similique velit.
                 </p>
-                <p className="mt-10 text-xl font-[Helvetica_Now_Display]">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-                  eius illum fugit eligendi nesciunt quia similique velit
-                  excepturi soluta tenetur illo repellat consectetur laborum
-                  eveniet eaque, dicta, hic quisquam? Ex cupiditate ipsa nostrum
-                  autem sapiente.
+                <p className="mt-6 text-base sm:text-lg">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex cupiditate ipsa nostrum autem sapiente.
                 </p>
-                <button className="bg-yellow-500 px-10 py-10 text-black mt-10 text-4xl">
+                <button className="bg-yellow-500 px-6 py-3 mt-6 text-black text-lg sm:text-xl rounded-md">
                   Download Now
                 </button>
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      }
+      )}
     </>
   )
 }

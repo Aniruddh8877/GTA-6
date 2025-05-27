@@ -125,7 +125,7 @@ useGSAP(() => {
                   <div className='line w-10 h-[5px] bg-white'></div>
                   <div className='line w-6 h-[5px] bg-white'></div>
                 </div>
-                <h3 className='text-white text-5xl font-bold font-[Pricedown] -mt-4 leading-none'>RockStar</h3>
+                <h3 className='text-white text-5xl font-bold font-[Pricedown] -mt-4 leading-none xs:text-emerald-900 '>RockStar</h3>
               </div>
               <div>
                 <h3 className='text-white text-3xl font-serif'>learn more</h3>
